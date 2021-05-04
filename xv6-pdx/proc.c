@@ -139,7 +139,7 @@ allocproc(void)
   sp -= sizeof *p->tf;
   p->tf = (struct trapframe*)sp;
 
-  // Set up new context to start executing at forkret,
+  // Set up new context to executing at forkret,
   // which returns to trapret.
   sp -= 4;
   *(uint*)sp = (uint)trapret;
@@ -148,6 +148,11 @@ allocproc(void)
   p->context = (struct context*)sp;
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
+
+  // new code
+  #ifdef CS333_P1 
+    p -> time_elapse = ticks;
+  #endif // CS333_P1
 
   return p;
 }
@@ -563,8 +568,42 @@ procdumpP2P3P4(struct proc *p, char *state_string)
 void
 procdumpP1(struct proc *p, char *state_string)
 {
-  cprintf("TODO for Project 1, delete this line and implement procdumpP1() in proc.c to print a row\n");
-  return;
+  char *state;
+  uint numberState = p -> state;
+
+  switch (numberState)
+  {
+  case 0:
+    state="unused";
+    break;
+  case 1:
+    state="embryo";
+    break;
+  case 2:
+    state="sleep";
+    break;
+  case 3:
+    state="runnable";
+    break;
+  case 4:
+    state="run";
+    break;
+  default:
+    state="zombie";
+    break;
+  }
+
+  uint getElapsed = ticks-p->time_elapse;
+  //Convert to second
+  uint left = (getElapsed) / 1000;
+  uint right = getElapsed % (left*1000);
+
+  
+
+  //cprintf("%d", secElapsed);
+
+  cprintf("\n%d\t%s\t%d.%d\t%s\t%d\t", p->pid, p->name, left, right, state, p->sz);
+
 }
 #endif
 
