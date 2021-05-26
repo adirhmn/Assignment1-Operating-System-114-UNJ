@@ -58,4 +58,4 @@ uint getppid(void);
 int setuid(uint);
 int setgid(uint);
 int getprocs(uint max, struct uproc* table);
-#endif //CS333_P1
+#endif //CS333_P2
