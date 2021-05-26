@@ -1,3 +1,7 @@
+#ifdef CS333_P2
+  #include "uproc.h"
+#endif
+
 struct buf;
 struct context;
 struct file;
@@ -124,6 +128,11 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+
+#ifdef CS333_P2
+int             getprocs(uint max, struct uproc* upTable);
+#endif //CS333_P2
+
 #ifdef CS333_P3
 void            printFreeList(void);
 void            printList(int);
