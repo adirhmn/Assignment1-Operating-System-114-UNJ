@@ -44,7 +44,18 @@ int atoo(const char*);
 int strncmp(const char*, const char*, uint);
 #endif // PDX_XV6
 
-//add code 
+//new code 
 #ifdef CS333_P1
   int date(struct rtcdate*);
 #endif // CS333_P1
+
+//new code
+#ifdef CS333_P2
+uint getuid(void);
+uint getgid(void);
+uint getppid(void);
+
+int setuid(uint);
+int setgid(uint);
+int getprocs(uint max, struct uproc* table);
+#endif //CS333_P1
